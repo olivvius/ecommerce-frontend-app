@@ -1,0 +1,72 @@
+<div class="main-content">
+  <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      <div *ngIf="cartItems.length > 0">
+        <table class="table table-bordered">
+          <tr>
+            <th width="20%" class="center">Product image</th>
+            <th width="20%">Product name</th>
+            <th width="20%">Product price</th>
+            <th width="20%">Product quantity</th>
+            <th width="20%">Product subtotal</th>
+          </tr>
+          <tr *ngFor="let tempProduct of cartItems">
+            <td width="20%">
+              <img
+                src="{{ tempProduct.imageUrl }}"
+                class="img-responsive"
+                width="250px"
+              />
+            </td>
+            <td width="20%">{{ tempProduct.name }}</td>
+            <td width="20%">{{ tempProduct.unitPrice | currency: "USD" }}</td>
+            <td width="20%">
+              <div class="row no-gutters">
+                <div class="col">
+                  <button (click)="incrementQuantity(tempProduct)" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+                <div class="col ml-4 mr-2">
+                  {{ tempProduct.quantity }}
+                </div>
+                <div class="col">
+                  <button (click)="decrementQuantity(tempProduct)" class="btn btn-primary btn-sm">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <div class="col">
+                  <button (click)="removeProduct(tempProduct)" class="btn btn-primary btn-sm">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </td>
+            <td width="20%">
+              {{
+                tempProduct.quantity * tempProduct.unitPrice | currency: "USD"
+              }}
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td width="25%">
+              <h4>Total Quantity : {{ totalQuantity }}</h4>
+              <h4>Shipping : Free</h4>
+              <h4>Total Price : {{ totalPrice | currency: "USD" }}</h4>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div
+        *ngIf="cartItems.length == 0"
+        class="alert alert-warning col-md-12"
+        role="alert"
+      >
+        <h4>Cart is empty!</h4>
+      </div>
+    </div>
+  </div>
+</div>
